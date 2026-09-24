@@ -67,7 +67,8 @@ archivos = st.file_uploader(
 
 if archivos and api_key:
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-2.5-flash')
+    # Nombre de modelo compatible con la capa gratuita
+    model = genai.GenerativeModel('gemini-1.5-flash-002')
     
     if st.button("🚀 Extraer Datos a Excel", type="primary"):
         resultados = []
@@ -116,5 +117,5 @@ if archivos and api_key:
                 file_name="Registro_Tiquetes_Energizar.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
             )
-
+            
         
