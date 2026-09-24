@@ -67,7 +67,8 @@ archivos = st.file_uploader(
 
 if archivos and api_key:
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-1.5-flash')
+    model = genai.GenerativeModel('gemini-1.5-flash-latest')
+    
     
     if st.button("🚀 Extraer Datos a Excel", type="primary"):
         resultados = []
