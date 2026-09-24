@@ -12,8 +12,11 @@ st.set_page_config(page_title="Lector Tiquetes Energizar", page_icon="✈️", l
 st.title("✈️ Lector de Tiquetes Energizar")
 st.write("Sube imágenes o archivos PDF para extraer datos a Excel.")
 
-# Entrada para la API Key
-api_key = st.text_input("🔑 Pega tu API Key de Gemini aquí:", type="password")
+# Obtener la API Key desde los Secrets de Streamlit
+api_key = st.secrets.get("GEMINI_API_KEY")
+
+if not api_key:
+    st.error("⚠️ No se encontró la API Key en los Secrets de Streamlit. Configúrala en Settings > Secrets.")
 
 COLUMNAS = [
     "N° tiquete", 
@@ -32,7 +35,7 @@ COLUMNAS = [
 def extraer_datos(imagen, model):
     prompt = """
     Analiza este comprobante de entrega de combustible de aviación (Energizar Aviación).
-    Extrae la información exacta y devuélvela estrictamente en formato JSON válido, sin ningún texto adicional ni formato markdown:
+    Extrae la información exacta y devuélvela strictly en formato JSON válido, sin ningún texto adicional ni formato markdown:
 
     {
       "N° tiquete": "Número que aparece al lado de MDE N°",
@@ -112,5 +115,6 @@ if archivos and api_key:
                 data=excel_data,
                 file_name="Registro_Tiquetes_Energizar.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-      )
-          
+    )
+            
+    
