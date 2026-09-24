@@ -35,7 +35,7 @@ COLUMNAS = [
 def extraer_datos(imagen, model):
     prompt = """
     Analiza este comprobante de entrega de combustible de aviación (Energizar Aviación).
-    Extrae la información exacta y devuélvela strictly en formato JSON válido, sin ningún texto adicional ni formato markdown:
+    Extrae la información exacta y devuélvela estrictamente en formato JSON válido, sin ningún texto adicional ni formato markdown:
 
     {
       "N° tiquete": "Número que aparece al lado de MDE N°",
@@ -67,8 +67,7 @@ archivos = st.file_uploader(
 
 if archivos and api_key:
     genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-1.5-flash-latest')
-    
+    model = genai.GenerativeModel('gemini-2.5-flash')
     
     if st.button("🚀 Extraer Datos a Excel", type="primary"):
         resultados = []
@@ -116,6 +115,6 @@ if archivos and api_key:
                 data=excel_data,
                 file_name="Registro_Tiquetes_Energizar.xlsx",
                 mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-    )
-            
-    
+            )
+
+        
